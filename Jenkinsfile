@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        FIREBASE_TOKEN = credentials('firebase-token') // Nome da credencial no Jenkins
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('google-application-credentials')
     }
 
     stages {
@@ -22,6 +22,12 @@ pipeline {
 
         stage('Staging') {
             steps {
+                // Copy the credentials file to a temporary location
+                sh 'cp $GOOGLE_APPLICATION_CREDENTIALS /tmp/google-application-credentials.json'
+
+                // Set the environment variable for Firebase CLI
+                sh 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/google-application-credentials.json'
+
                 sh 'firebase use staging'
                 sh 'firebase deploy --token $FIREBASE_TOKEN --only hosting'
             }
@@ -33,8 +39,14 @@ pipeline {
                 branch 'main'
             }
             steps {
+                // Copy the credentials file again to the temporary location
+                sh 'cp $GOOGLE_APPLICATION_CREDENTIALS /tmp/google-application-credentials.json'
+
+                // Set the environment variable for Firebase CLI
+                sh 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/google-application-credentials.json'
+
                 sh 'firebase use production'
-                sh 'firebase deploy --only hosting'
+                sh 'firebase deploy --only hosting''
             }
         }
     }
