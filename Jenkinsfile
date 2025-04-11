@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                 echo 'Build testing only for this assignment.'
+                 sh 'npm install'
             }
         }
 
