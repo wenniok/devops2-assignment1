@@ -22,6 +22,7 @@ pipeline {
 
         stage('Staging') {
             steps {
+                echo "Current branch: ${env.BRANCH_NAME}"
                 sh 'firebase use staging'
                 sh 'firebase deploy --token $FIREBASE_TOKEN --only hosting'
             }
