@@ -31,6 +31,10 @@ pipeline {
         stage('Production') {
             when {
                 expression {
+                    def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    
+                    // Imprime o nome da branch
+                    echo "Current branch is: ${branchName}"
                     return sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim() == 'main'
                 }
             }
