@@ -30,12 +30,9 @@ pipeline {
 
         stage('Production') {
             when {
-                expression {
-                    checkout scm // Faz o checkout do repositório configurado pelo Jenkins
-                    echo "Current branch is: ${sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()}"
-                    return sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim() == 'main'
-                }
+                branch 'main'
             }
+
             steps {
                 sh 'firebase use production'
                 sh 'firebase deploy --token $FIREBASE_TOKEN --only hosting'
