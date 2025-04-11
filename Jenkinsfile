@@ -31,7 +31,9 @@ pipeline {
 
         stage('Production') {
             when {
-                branch 'main'
+                expression {
+                    return env.BRANCH_NAME == 'main'
+                }
             }
             steps {
                 sh 'firebase use production'
