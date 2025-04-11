@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "finalexamsqa"
+    "default": "finalexamsqa",
+    "staging": "finalexamsqa",
+    "production": "h2o-staging"
   }
 }
