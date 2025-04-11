@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+    environment {
+        FIREBASE_TOKEN = credentials('firebase-token') // Nome da credencial no Jenkins
+    }
 
     stages {
         stage('Build') {
@@ -20,7 +23,7 @@ pipeline {
         stage('Staging') {
             steps {
                 sh 'firebase use staging'
-                sh 'firebase deploy --only hosting'
+                sh 'firebase deploy --token $FIREBASE_TOKEN --only hosting'
             }
         }
 
