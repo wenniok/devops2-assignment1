@@ -22,7 +22,6 @@ pipeline {
 
         stage('Staging') {
             steps {
-                echo "Current branch: ${env.BRANCH_NAME}"
                 sh 'firebase use staging'
                 sh 'firebase deploy --token $FIREBASE_TOKEN --only hosting'
             }
@@ -32,7 +31,7 @@ pipeline {
         stage('Production') {
             when {
                 expression {
-                    return env.BRANCH_NAME == 'main'
+                    return sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim() == 'main'
                 }
             }
             steps {
