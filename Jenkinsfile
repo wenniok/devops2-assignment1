@@ -29,7 +29,7 @@ pipeline {
                 sh 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/google-application-credentials.json'
 
                 sh 'firebase use staging'
-                sh 'firebase deploy --token $FIREBASE_TOKEN --only hosting'
+                sh 'firebase deploy --only hosting'
             }
         }
 
