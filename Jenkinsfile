@@ -31,6 +31,7 @@ pipeline {
         stage('Production') {
             when {
                 expression {
+                    sh 'git status'
                     def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD || echo "not-a-branch"', returnStdout: true).trim()
                     
                     // Imprime o nome da branch
