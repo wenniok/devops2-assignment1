@@ -46,7 +46,7 @@ pipeline {
                 sh 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/google-application-credentials.json'
 
                 sh 'firebase use production'
-                sh 'firebase deploy --only hosting''
+                sh 'firebase deploy --only hosting'
             }
         }
     }
